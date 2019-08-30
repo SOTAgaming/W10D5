@@ -1,15 +1,21 @@
 export const RECEIVE_TODOS = "RECEIVE_TODOS";
 export const RECEIVE_TODO = "RECEIVE_TODO";
+export const REMOVE_TODO = "REMOVE_TODO";
 
-const receiveTodos = (data) => ({
+export const receiveTodos = (data) => ({
   type: RECEIVE_TODOS,
   data
 })
 
-const receiveTodo = (data) => ({
+export const receiveTodo = (data) => ({
   type: RECEIVE_TODO,
   data
 })
 
-window.receiveTodo = receiveTodo;
-window.receiveTodos = receiveTodos
+export const removeTodo = (data) => ({
+
+})
+
+// window.receiveTodo = receiveTodo;
+// window.receiveTodos = receiveTodos
+

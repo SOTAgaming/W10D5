@@ -1,4 +1,4 @@
-import { RECEIVE_TODOS, RECEIVE_TODO} from '../actions/todo_actions';
+import { RECEIVE_TODOS, RECEIVE_TODO, REMOVE_TODO} from '../actions/todo_actions';
 
 
  export const todoReducer = (state = {}, action) => {
@@ -12,6 +12,9 @@ import { RECEIVE_TODOS, RECEIVE_TODO} from '../actions/todo_actions';
       return newState
     case RECEIVE_TODO:
       newState[action.data.id] = action.data;
+      return newState
+    case REMOVE_TODO:
+      delete newState[action.data.id]
       return newState
     default:
       return state
