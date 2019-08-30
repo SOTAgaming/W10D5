@@ -13,7 +13,8 @@ export const receiveTodo = (data) => ({
 })
 
 export const removeTodo = (data) => ({
-
+  type: REMOVE_TODO,
+  data
 })
 
 // window.receiveTodo = receiveTodo;

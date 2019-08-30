@@ -117,7 +117,10 @@ var receiveTodo = function receiveTodo(data) {
   };
 };
 var removeTodo = function removeTodo(data) {
-  return {};
+  return {
+    type: REMOVE_TODO,
+    data: data
+  };
 }; // window.receiveTodo = receiveTodo;
 // window.receiveTodos = receiveTodos
 
@@ -262,7 +265,6 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      console.log(this.state);
       e.preventDefault();
       this.props.receiveTodo(this.state);
       this.setState({
@@ -279,7 +281,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props.receiveTodo);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -334,6 +335,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     receiveTodo: function receiveTodo(todo) {
       return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_2__["receiveTodo"])(todo));
+    },
+    removeTodo: function removeTodo(todo) {
+      return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_2__["removeTodo"])(todo));
     }
   };
 };
@@ -356,8 +360,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TodoListItem = function TodoListItem(_ref) {
-  var todo = _ref.todo;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, todo.body));
+  var todo = _ref.todo,
+      removeTodo = _ref.removeTodo;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: function onClick() {
+      return removeTodo(todo);
+    }
+  }, "Delete"));
 }; // class TodoListItem extends React.Component {
 //   constructor(props) {
 //     super(props)
@@ -395,7 +404,9 @@ var List = function List(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, props.todos.map(function (todo) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
       key: todo.id,
-      todo: todo
+      todo: todo,
+      removeTodo: props.removeTodo,
+      receiveTodo: props.receiveTodo
     });
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
     receiveTodo: props.receiveTodo

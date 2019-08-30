@@ -6,7 +6,7 @@ const List = (props) => {
   return(
   <div> 
     {
-     props.todos.map(todo => (<TodoListItem key={todo.id} todo={todo} />))
+        props.todos.map(todo => (<TodoListItem key={todo.id} todo={todo} removeTodo={props.removeTodo} receiveTodo={props.receiveTodo}/>))
     }
       <TodoForm receiveTodo={props.receiveTodo} />
   </div>

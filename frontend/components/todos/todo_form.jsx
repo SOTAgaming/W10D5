@@ -41,7 +41,6 @@ class TodoForm extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state)
     e.preventDefault();
     this.props.receiveTodo(this.state);
     this.setState ({
@@ -57,7 +56,6 @@ class TodoForm extends React.Component {
 
   render() {
 
-    console.log(this.props.receiveTodo)
 
     return (
     <form onSubmit={this.handleSubmit}>
