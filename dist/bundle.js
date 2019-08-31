@@ -224,7 +224,8 @@ function (_React$Component) {
     _this.state = {
       body: "",
       title: "",
-      id: _this.uniqueId() // this.handleBody = this.handleBody.bind(this)
+      id: _this.uniqueId(),
+      done: false // this.handleBody = this.handleBody.bind(this)
 
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this)); // this.handleTitle = this.handleTitle.bind(this)
@@ -282,7 +283,8 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
+        onSubmit: this.handleSubmit,
+        className: "new-todo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         onChange: this.update('title'),
         id: "title-input",
@@ -293,7 +295,7 @@ function (_React$Component) {
         id: "body-input",
         type: "text",
         value: this.state.body
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "New Todo"
       }));
@@ -357,27 +359,94 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
-var TodoListItem = function TodoListItem(_ref) {
-  var todo = _ref.todo,
-      removeTodo = _ref.removeTodo;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: function onClick() {
-      return removeTodo(todo);
+
+var TodoListItem =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(TodoListItem, _React$Component);
+
+  function TodoListItem(props) {
+    var _this;
+
+    _classCallCheck(this, TodoListItem);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TodoListItem).call(this, props));
+    _this.state = {
+      title: _this.props.todo.title,
+      body: _this.props.todo.body,
+      id: _this.props.todo.id,
+      done: _this.props.todo.done
+    };
+    _this.toggleDone = _this.toggleDone.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(TodoListItem, [{
+    key: "toggleDone",
+    value: function toggleDone(e) {
+      if (this.state.done === false) {
+        this.setState({
+          done: true
+        }); // e.target.parentNode.classList.add("done")
+        // e.target.innerText = "Not Done"
+      } else {
+        this.setState({
+          done: false
+        }); // e.target.parentNode.classList.remove("done");
+        // e.target.innerText = "Done"
+      }
+
+      this.props.receiveTodo(this.state);
     }
-  }, "Delete"));
-}; // class TodoListItem extends React.Component {
-//   constructor(props) {
-//     super(props)
-//   }
-//   render() {
-//     return (
-//       <h1>test</h1>
-//     )
-//   }
-// }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
+      var done = "";
+      var text = "Done";
+
+      if (this.state.done === true) {
+        done = "done";
+        text = "Not Done";
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "todo"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this2.props.removeTodo(_this2.props.todo);
+        },
+        "class": "delete"
+      }, "X"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: done
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.props.todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.props.todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toggleDone
+      }, text)));
+    }
+  }]);
+
+  return TodoListItem;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (TodoListItem);
 
@@ -401,14 +470,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var List = function List(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, props.todos.map(function (todo) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "todo-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Todo List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "todo-list"
+  }, props.todos.map(function (todo) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
       key: todo.id,
       todo: todo,
       removeTodo: props.removeTodo,
       receiveTodo: props.receiveTodo
     });
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
     receiveTodo: props.receiveTodo
   }));
 };
@@ -553,13 +626,13 @@ document.addEventListener("DOMContentLoaded", function () {
       id: 2,
       title: 'wash dog',
       body: 'with shampoo',
-      done: true
+      done: false
     },
     3: {
-      id: 4,
+      id: 3,
       title: 'wash Jason',
       body: 'withOut shampoo',
-      done: true
+      done: false
     }
   };
   var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])({
